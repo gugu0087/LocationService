@@ -78,6 +78,7 @@ public class ReceiveActivity extends BaseActivity {
                 pullListView.refreshComplete();
                 pullListView.getMoreComplete();
                 Log.d("xyc", "done: list=" + list);
+                locationList.clear();
                 for (int i = 0; i < list.size(); i++) {
                     LocationModel locationModel = new LocationModel();
                     locationModel.setAddress(list.get(i).getString("address"));
