@@ -6,13 +6,18 @@
     <string name="register_success">注册成功</string>
     <string name="register_failed">注册失败,用户名和密码已被注册</string>
     <string name="login_success">登录成功</string>
+    <string name="login_invalid">登录失效，请重新登录</string>
+    <string name="link_success">连接成功</string>
     <string name="user_name_length">用户名密码长度不得少于6位数，大于20位数</string>
-    <string name="register_phone">手机号不能为空</string>
-    <string name="register_phone_length">手机号不合法</string>
+    <string name="register_phone">连接号不能为空</string>
+    <string name="register_phone_length">连接号应为4-15位数</string>
+    <string name="change_ver_receive">切换成接收版</string>
+    <string name="change_ver_monitor">切换成监听版</string>
     <!-- 登录注册-->
     <string name="login">登录</string>
     <string name="login_ing_tip">登录中。。</string>
     <string name="register">注册</string>
     <string name="register_ing_tip">注册中。。</string>
     <string name="slide_menu_item_login_out">退出登录</string>
+    <string name="link">连接</string>
 </resources>

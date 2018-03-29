@@ -35,6 +35,7 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="PhDAMKmZSGUIhLVaUAyNCEQffTRz0u05" />
+
         <service
             android:name=".logic.service.LocationService"
             android:enabled="true"
@@ -59,6 +60,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UI.activity.ReceiveActivity"></activity>
     </application>
 
 </manifest>

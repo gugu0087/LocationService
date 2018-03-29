@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
+import com.xyc.guguviews.views.BaseActivity;
 import com.xyc.locationservice.R;
 import com.xyc.locationservice.base.CommonParams;
 import com.xyc.locationservice.logic.eventBus.LoginEvent;
@@ -34,19 +35,26 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private EditText etUserName;
     private EditText etPassword;
     private Button btnLogin;
     private TextView tvChangeType;
     private boolean isLogin = true;
-    private EditText etPhoneNumber;
+
+    private TextView tvChangeVerType;
+    private boolean isReceiveClient = false;
+
+    @Override
+    protected void initHeader() {
+        setHeaderTitle(UiUtils.getValueString(R.string.login));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setCenterView(R.layout.activity_login);
         initView();
         EventBus.getDefault().register(this);
     }
@@ -58,40 +66,19 @@ public class LoginActivity extends AppCompatActivity {
     private void initView() {
         etUserName = (EditText) findViewById(R.id.etUserName);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
+
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvChangeType = (TextView) findViewById(R.id.tvChangeType);
-
+        tvChangeVerType = (TextView) findViewById(R.id.tvChangeVerType);
+        isReceiveClient = PreferencesUtils.getBoolean(CommonParams.CLIENT_TYPE, false);
+        updateChangeVerUI();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userName = etUserName.getText().toString();
-                String password = etPassword.getText().toString();
-                String checkBackName = DataUtils.checkUserName(userName);
-                String checkBackPsw = DataUtils.checkUserName(password);
-
-                if (checkBackName != null) {
-                    ToastUtil.showShort(checkBackName);
-                    return;
-                }
-                if (checkBackPsw != null) {
-                    ToastUtil.showShort(checkBackPsw);
-                    return;
-                }
-                if (isLogin) {
-                    login(userName, password);
+                if (isReceiveClient) {
+                    login();
                 } else {
-                    String phoneNumber = etPhoneNumber.getText().toString();
-                    String checkBackPhone = DataUtils.checkPhoneNumber(phoneNumber);
-                    if (checkBackPhone != null) {
-                        ToastUtil.showShort(checkBackPhone);
-                        return;
-                    }
-                    User user = new User();
-                    user.setUserName(userName);
-                    user.setPassword(password);
-                    user.setPhoneNumber(phoneNumber);
-                    register(user);
+                    login();
                 }
             }
         });
@@ -101,6 +88,29 @@ public class LoginActivity extends AppCompatActivity {
                 updateUI();
             }
         });
+        tvChangeVerType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isReceiveClient = !isReceiveClient;
+                updateChangeVerUI();
+            }
+        });
+
+    }
+
+    private void updateChangeVerUI() {
+
+        if (isReceiveClient) {
+            tvChangeType.setVisibility(View.GONE);
+            tvChangeVerType.setText(UiUtils.getValueString(R.string.change_ver_monitor));
+            btnLogin.setText(UiUtils.getValueString(R.string.link));
+            setHeaderTitle(UiUtils.getValueString(R.string.link));
+        } else {
+            tvChangeType.setVisibility(View.VISIBLE);
+            btnLogin.setText(UiUtils.getValueString(R.string.login));
+            setHeaderTitle(UiUtils.getValueString(R.string.login));
+            tvChangeVerType.setText(UiUtils.getValueString(R.string.change_ver_receive));
+        }
 
     }
 
@@ -117,10 +127,14 @@ public class LoginActivity extends AppCompatActivity {
             PreferencesUtils.putString(CommonParams.OBJECT_ID, objectId);
         }
         PreferencesUtils.putBoolean(CommonParams.ISLOGINIT, true);
-
-        ToastUtil.showShort(UiUtils.getValueString(R.string.login_success));
-
-        startActivity(MainActivity.makeIntent(this));
+        PreferencesUtils.putBoolean(CommonParams.CLIENT_TYPE,isReceiveClient);
+        if (isReceiveClient) {
+            ToastUtil.showShort(UiUtils.getValueString(R.string.link_success));
+            startActivity(ReceiveActivity.makeIntent(this));
+        } else {
+            ToastUtil.showShort(UiUtils.getValueString(R.string.login_success));
+            startActivity(MainActivity.makeIntent(this));
+        }
         finish();
     }
 
@@ -141,11 +155,35 @@ public class LoginActivity extends AppCompatActivity {
         if (isLogin) {
             tvChangeType.setText(UiUtils.getValueString(R.string.register));
             btnLogin.setText(UiUtils.getValueString(R.string.login));
-            etPhoneNumber.setVisibility(View.GONE);
+
         } else {
             tvChangeType.setText(UiUtils.getValueString(R.string.login));
             btnLogin.setText(UiUtils.getValueString(R.string.register));
-            etPhoneNumber.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    private void login() {
+        String userName = etUserName.getText().toString();
+        String password = etPassword.getText().toString();
+        String checkBackName = DataUtils.checkUserName(userName);
+        String checkBackPsw = DataUtils.checkUserName(password);
+
+        if (checkBackName != null) {
+            ToastUtil.showShort(checkBackName);
+            return;
+        }
+        if (checkBackPsw != null) {
+            ToastUtil.showShort(checkBackPsw);
+            return;
+        }
+        if (isLogin) {
+            login(userName, password);
+        } else {
+            User user = new User();
+            user.setUserName(userName);
+            user.setPassword(password);
+            register(user);
         }
     }
 

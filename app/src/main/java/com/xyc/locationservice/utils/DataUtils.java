@@ -30,11 +30,11 @@ public class DataUtils {
         return null;
     }
 
-    public static String checkPhoneNumber(String phoneNumber) {
+    public static String checkLinkNumber(String phoneNumber) {
         if (phoneNumber.isEmpty()) {
             return UiUtils.getValueString(R.string.register_phone);
         }
-        if (phoneNumber.length() != 11) {
+        if (phoneNumber.length()<4||phoneNumber.length()>15) {
             return UiUtils.getValueString(R.string.register_phone_length);
         }
         return null;

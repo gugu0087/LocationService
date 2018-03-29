@@ -18,10 +18,19 @@ public class LaunchActivity extends AppCompatActivity {
 
     private void initData() {
         boolean isLogin = PreferencesUtils.getBoolean(CommonParams.ISLOGINIT, false);
-        if (isLogin) {
-            startActivity(MainActivity.makeIntent(this));
+        boolean isReceiveClient = PreferencesUtils.getBoolean(CommonParams.CLIENT_TYPE, false);
+        if (isReceiveClient) {
+            if (isLogin) {
+                startActivity(ReceiveActivity.makeIntent(this));
+            } else {
+                startActivity(LoginActivity.makeIntent(this));
+            }
         } else {
-            startActivity(LoginActivity.makeIntent(this));
+            if (isLogin) {
+                startActivity(MainActivity.makeIntent(this));
+            } else {
+                startActivity(LoginActivity.makeIntent(this));
+            }
         }
         finish();
     }

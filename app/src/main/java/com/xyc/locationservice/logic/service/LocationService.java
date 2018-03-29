@@ -53,11 +53,14 @@ public class LocationService extends Service {
         if (latitude == 0 || longitude == 0) {
             return;
         }
-        AVObject object = new AVObject("Address");
+        AVObject object = new AVObject(CommonParams.ADDRESS_TABLE_NAME);
         String userId = PreferencesUtils.getString(CommonParams.OBJECT_ID);
+        if (userId == null) {
+            return;
+        }
         object.put("userId", userId);
-        object.put("latitude",  latitude);
-        object.put("longitude",  longitude);
+        object.put("latitude", latitude);
+        object.put("longitude", longitude);
         object.put("address", addrStr);
         LogicManager.getInstance().saveLocation(object);
     }
@@ -70,7 +73,7 @@ public class LocationService extends Service {
             public void run() {
                 startLocatiton();
             }
-        }, 0, 1, TimeUnit.MINUTES);
+        }, 0, 10, TimeUnit.MINUTES);
 
     }
 

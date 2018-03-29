@@ -37,7 +37,6 @@ dependencies {
     compile 'com.github.gugu0087:GuUtils:2.3.2'
     compile 'com.github.gugu0087:GuOkhttps:1.1.0'
     compile 'com.github.gugu0087:GuViews:1.0.3'
-    // LeanCloud 基础包
     compile ('cn.leancloud.android:avoscloud-sdk:v4.6.4')
 
     testCompile 'junit:junit:4.12'
