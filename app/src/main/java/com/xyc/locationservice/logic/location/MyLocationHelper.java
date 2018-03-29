@@ -1,4 +1,4 @@
-package com.xyc.locationservice.location;
+package com.xyc.locationservice.logic.location;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;

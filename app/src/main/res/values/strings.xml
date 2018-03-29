@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">LocationService</string>
+    <!-- 弹窗提示-->
+    <string name="name_psw_no_empty">账号密码不能为空</string>
+    <string name="name_psw_no_exist">账号不存在，请先注册</string>
+    <string name="register_success">注册成功</string>
+    <string name="register_failed">注册失败,用户名和密码已被注册</string>
+    <string name="login_success">登录成功</string>
+    <string name="user_name_length">用户名密码长度不得少于6位数，大于20位数</string>
+    <string name="register_phone">手机号不能为空</string>
+    <string name="register_phone_length">手机号不合法</string>
+    <!-- 登录注册-->
+    <string name="login">登录</string>
+    <string name="login_ing_tip">登录中。。</string>
+    <string name="register">注册</string>
+    <string name="register_ing_tip">注册中。。</string>
+    <string name="slide_menu_item_login_out">退出登录</string>
 </resources>

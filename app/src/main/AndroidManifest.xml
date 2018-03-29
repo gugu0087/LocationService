@@ -30,25 +30,35 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <!-- 百度地图相关 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="PhDAMKmZSGUIhLVaUAyNCEQffTRz0u05" />
         <service
-            android:name=".service.LocationService"
+            android:name=".logic.service.LocationService"
             android:enabled="true"
             android:priority="2147483647">
             <intent-filter>
                 <action android:name="com.xyc.locationservice" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".UI.activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.activity.LaunchActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
