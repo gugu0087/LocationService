@@ -61,13 +61,7 @@ public class MainActivity extends BaseActivity {
         slideMenu.setContentView(contentView);
         initContentView(contentView);
         initSlideMenu();
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 测试 SDK 是否正常工作的代码
-                startService();
-            }
-        });
+        startService();
     }
 
     private void initSlideMenu() {
