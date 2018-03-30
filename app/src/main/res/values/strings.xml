@@ -25,4 +25,5 @@
     <string name="upload_count_60">60分钟一次</string>
     <string name="upload_count_120">120分钟一次</string>
     <string name="upload_count_300">300分钟一次</string>
+    <string name="act_location_title">位置信息</string>
 </resources>

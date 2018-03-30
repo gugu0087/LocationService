@@ -34,7 +34,7 @@
         <!-- 百度地图相关 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="PhDAMKmZSGUIhLVaUAyNCEQffTRz0u05" />
+            android:value="yjN2mXUcpjYvj0Svb0WAwS2K4LrmrnOl" />
 
         <service
             android:name=".logic.service.LocationService"
@@ -60,7 +60,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.activity.ReceiveActivity"></activity>
+        <activity android:name=".UI.activity.ReceiveActivity" />
+        <activity android:name=".UI.activity.LocationActivity"></activity>
     </application>
 
 </manifest>

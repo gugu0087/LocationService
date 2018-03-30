@@ -9,8 +9,8 @@ package com.xyc.locationservice.logic.model;
 public class LocationModel {
     private String lastTime;
     private String address;
-    private long latitude;
-    private long longtitude;
+    private double latitude;
+    private double longtitude;
 
     public String getLastTime() {
         return lastTime;
@@ -28,19 +28,19 @@ public class LocationModel {
         this.address = address;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public long getLongtitude() {
+    public double getLongtitude() {
         return longtitude;
     }
 
-    public void setLongtitude(long longtitude) {
+    public void setLongtitude(double longtitude) {
         this.longtitude = longtitude;
     }
 

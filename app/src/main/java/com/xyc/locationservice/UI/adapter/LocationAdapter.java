@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.xyc.guguviews.utils.DateUtils;
 import com.xyc.locationservice.R;
+import com.xyc.locationservice.UI.activity.LocationActivity;
 import com.xyc.locationservice.logic.model.LocationModel;
 
 import java.util.List;
@@ -56,14 +57,14 @@ public class LocationAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) containView.getTag();
         }
-        LocationModel locationModel = locationModels.get(position);
+        final LocationModel locationModel = locationModels.get(position);
         if (locationModel != null) {
             viewHolder.tvLocation.setText(locationModel.getAddress());
             viewHolder.updateTime.setText(locationModel.getLastTime());
             viewHolder.tvToLocation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    context.startActivity(LocationActivity.makeIntent(context,locationModel.getLatitude(),locationModel.getLongtitude(),locationModel.getAddress()));
                 }
             });
         }

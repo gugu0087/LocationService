@@ -101,8 +101,8 @@ public class LocationManager {
                     LocationModel locationModel = new LocationModel();
                     locationModel.setAddress(list.get(i).getString("address"));
                     locationModel.setLastTime(DateUtils.getInstance().getLongToString(list.get(i).getCreatedAt().getTime(), DateUtils.MINUTE_FORMAT));
-                    locationModel.setLatitude(list.get(i).getLong("latitude"));
-                    locationModel.setLatitude(list.get(i).getLong("longtitude"));
+                    locationModel.setLatitude(list.get(i).getNumber("latitude").doubleValue());
+                    locationModel.setLongtitude(list.get(i).getNumber("longtitude").doubleValue());
                     locationList.add(locationModel);
                 }
                 EventBus.getDefault().post(new LocationEvent(locationList));
