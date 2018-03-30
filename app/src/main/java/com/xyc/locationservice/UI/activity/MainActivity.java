@@ -25,8 +25,7 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
-    private Button btnStart;
-    private TextView tvContent;
+
     private SlideMenuLayout slideMenu;
 
     @Override
@@ -87,8 +86,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initContentView(View contentView) {
-        btnStart = contentView.findViewById(R.id.btnStart);
-        tvContent = contentView.findViewById(R.id.tvContent);
+
     }
 
     private void startService() {
