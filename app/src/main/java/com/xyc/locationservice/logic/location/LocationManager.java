@@ -77,9 +77,11 @@ public class LocationManager {
             @Override
             public void done(AVException e) {
                 if (e == null) {
+                    Log.d("xyc", "done: 存储成功");
                     // 存储成功
                    // Log.d(TAG, todo.getObjectId());// 保存成功之后，objectId 会自动从服务端加载到本地
                 } else {
+                    Log.d("xyc", "done: 存储失败");
                     // 失败的话，请检查网络环境以及 SDK 配置是否正确
                 }
             }
@@ -89,6 +91,8 @@ public class LocationManager {
         AVQuery<AVObject> query = new AVQuery<>(CommonParams.ADDRESS_TABLE_NAME);
         final List<LocationModel> locationList = new ArrayList<>();
         query.whereEqualTo("userId", userId);
+        // 按时间，降序排列
+        query.orderByDescending("createdAt");
         // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
         query.findInBackground(new FindCallback<AVObject>() {
             @Override

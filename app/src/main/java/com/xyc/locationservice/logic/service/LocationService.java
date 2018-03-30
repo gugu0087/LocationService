@@ -47,7 +47,9 @@ public class LocationService extends Service {
     }
 
     private void saveLocationData(BDLocation bdLocation) {
+
         String addrStr = bdLocation.getAddrStr();
+        Log.d("xyc", "saveLocationData: addrStr="+addrStr);
         double latitude = bdLocation.getLatitude();
         double longitude = bdLocation.getLongitude();
         if (latitude == 0 || longitude == 0) {
@@ -55,6 +57,7 @@ public class LocationService extends Service {
         }
         AVObject object = new AVObject(CommonParams.ADDRESS_TABLE_NAME);
         String userId = PreferencesUtils.getString(CommonParams.OBJECT_ID);
+        Log.d("xyc", "saveLocationData: userId="+userId);
         if (userId == null) {
             return;
         }
@@ -68,12 +71,12 @@ public class LocationService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        ThreadPoolManager.getInstance().getSingleScheduledThreadPool(5).scheduleAtFixedRate(new Runnable() {
+        ThreadPoolManager.getInstance().getSingleScheduledThreadPool(2).scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 startLocatiton();
             }
-        }, 0, 10, TimeUnit.MINUTES);
+        }, 0, 60, TimeUnit.MINUTES);
 
     }
 
