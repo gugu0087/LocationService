@@ -20,4 +20,9 @@
     <string name="register_ing_tip">注册中。。</string>
     <string name="slide_menu_item_login_out">退出登录</string>
     <string name="link">连接</string>
+    <string name="upload_count_10">10分钟一次</string>
+    <string name="upload_count_30">30分钟一次</string>
+    <string name="upload_count_60">60分钟一次</string>
+    <string name="upload_count_120">120分钟一次</string>
+    <string name="upload_count_300">300分钟一次</string>
 </resources>

@@ -15,7 +15,15 @@ public class CommonParams {
     public static final String ISLOGINIT = "isLogin";
     public static final String OBJECT_ID = "objectId";
     public static final String CLIENT_TYPE= "clientType";
+    public static final String RATE_MINUTE= "upload_rate";
 
     public static final int ITEM_ID_OUT = 1;
     public static final int REFRESH_TIME = 1000;
+
+    public static final int RATE_MINUTE_10 = 10;
+    public static final int RATE_MINUTE_30 = 30;
+    public static final int RATE_MINUTE_60 = 60;
+    public static final int RATE_MINUTE_120 = 120;
+    public static final int RATE_MINUTE_300 = 300;
+
 }

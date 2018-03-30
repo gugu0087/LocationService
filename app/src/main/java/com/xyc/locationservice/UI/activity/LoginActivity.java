@@ -24,6 +24,9 @@ import com.xyc.locationservice.logic.manager.LoginManager;
 import com.xyc.locationservice.logic.model.User;
 import com.xyc.locationservice.utils.DataUtils;
 import com.xyc.locationservice.utils.UiUtils;
+import com.xyc.okutils.delegate.SpinOnItemClickListener;
+import com.xyc.okutils.model.SpinnerSelectModel;
+import com.xyc.okutils.utils.DialogUtils;
 import com.xyc.okutils.utils.PreferencesUtils;
 import com.xyc.okutils.utils.ProgressUtils;
 import com.xyc.okutils.utils.ToastUtil;
@@ -33,6 +36,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginActivity extends BaseActivity {
@@ -45,6 +49,7 @@ public class LoginActivity extends BaseActivity {
 
     private TextView tvChangeVerType;
     private boolean isReceiveClient = false;
+    private TextView tvRate;
 
     @Override
     protected void initHeader() {
@@ -66,6 +71,7 @@ public class LoginActivity extends BaseActivity {
     private void initView() {
         etUserName = (EditText) findViewById(R.id.etUserName);
         etPassword = (EditText) findViewById(R.id.etPassword);
+        tvRate = (TextView) findViewById(R.id.tvRate);
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvChangeType = (TextView) findViewById(R.id.tvChangeType);
@@ -95,7 +101,51 @@ public class LoginActivity extends BaseActivity {
                 updateChangeVerUI();
             }
         });
+        tvRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initRate();
+            }
+        });
 
+    }
+
+    private void initRate() {
+        final List<SpinnerSelectModel> selectModelList = new ArrayList<>();
+        SpinnerSelectModel selectModel1 = new SpinnerSelectModel();
+        selectModel1.setId(CommonParams.RATE_MINUTE_10);
+        selectModel1.setSelectItem(UiUtils.getValueString(R.string.upload_count_10));
+        selectModelList.add(selectModel1);
+
+        SpinnerSelectModel selectModel2 = new SpinnerSelectModel();
+        selectModel2.setId(CommonParams.RATE_MINUTE_30);
+        selectModel2.setSelectItem(UiUtils.getValueString(R.string.upload_count_30));
+        selectModelList.add(selectModel2);
+
+        SpinnerSelectModel selectModel3 = new SpinnerSelectModel();
+        selectModel3.setId(CommonParams.RATE_MINUTE_60);
+        selectModel3.setSelectItem(UiUtils.getValueString(R.string.upload_count_60));
+        selectModelList.add(selectModel3);
+
+
+        SpinnerSelectModel selectModel4 = new SpinnerSelectModel();
+        selectModel4.setId(CommonParams.RATE_MINUTE_120);
+        selectModel4.setSelectItem(UiUtils.getValueString(R.string.upload_count_120));
+        selectModelList.add(selectModel4);
+
+
+        SpinnerSelectModel selectModel5 = new SpinnerSelectModel();
+        selectModel5.setId(CommonParams.RATE_MINUTE_300);
+        selectModel5.setSelectItem(UiUtils.getValueString(R.string.upload_count_300));
+        selectModelList.add(selectModel5);
+
+        DialogUtils.showSpinDailog(this, selectModelList, new SpinOnItemClickListener() {
+            @Override
+            public void onItemClick(int position, int id) {
+                tvRate.setText(selectModelList.get(position).getSelectItem());
+                PreferencesUtils.putInt(CommonParams.RATE_MINUTE,id);
+            }
+        });
     }
 
     private void updateChangeVerUI() {
@@ -105,11 +155,14 @@ public class LoginActivity extends BaseActivity {
             tvChangeVerType.setText(UiUtils.getValueString(R.string.change_ver_monitor));
             btnLogin.setText(UiUtils.getValueString(R.string.link));
             setHeaderTitle(UiUtils.getValueString(R.string.link));
+            tvRate.setVisibility(View.GONE);
+
         } else {
             tvChangeType.setVisibility(View.VISIBLE);
             btnLogin.setText(UiUtils.getValueString(R.string.login));
             setHeaderTitle(UiUtils.getValueString(R.string.login));
             tvChangeVerType.setText(UiUtils.getValueString(R.string.change_ver_receive));
+            tvRate.setVisibility(View.VISIBLE);
         }
 
     }
@@ -127,7 +180,7 @@ public class LoginActivity extends BaseActivity {
             PreferencesUtils.putString(CommonParams.OBJECT_ID, objectId);
         }
         PreferencesUtils.putBoolean(CommonParams.ISLOGINIT, true);
-        PreferencesUtils.putBoolean(CommonParams.CLIENT_TYPE,isReceiveClient);
+        PreferencesUtils.putBoolean(CommonParams.CLIENT_TYPE, isReceiveClient);
         if (isReceiveClient) {
             ToastUtil.showShort(UiUtils.getValueString(R.string.link_success));
             startActivity(ReceiveActivity.makeIntent(this));

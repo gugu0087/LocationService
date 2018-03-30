@@ -71,12 +71,14 @@ public class LocationService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        int rate = PreferencesUtils.getInt(CommonParams.RATE_MINUTE, CommonParams.RATE_MINUTE_60);
+        Log.d("xyc", "onCreate: rate="+rate);
         ThreadPoolManager.getInstance().getSingleScheduledThreadPool(2).scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 startLocatiton();
             }
-        }, 0, 60, TimeUnit.MINUTES);
+        }, 0, rate, TimeUnit.MINUTES);
 
     }
 

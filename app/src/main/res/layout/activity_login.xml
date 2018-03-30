@@ -36,19 +36,22 @@
             android:textColor="@color/text_black_gray"
             android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/etLinkNumber"
+        <TextView
+            android:id="@+id/tvRate"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:drawableRight="@mipmap/xiala"
+            android:paddingRight="10dp"
+            android:hint="请选择频率"
             android:background="@drawable/com_input_bg_blue_shape"
-            android:hint="请输入连接号（4-15位数）"
             android:inputType="number"
             android:maxLength="15"
             android:paddingLeft="10dp"
+            android:visibility="gone"
             android:textColor="@color/text_black_gray"
-            android:textSize="14sp"
-            android:visibility="gone" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvChangeType"
