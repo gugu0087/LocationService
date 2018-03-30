@@ -60,7 +60,7 @@ public class LocationService extends Service {
         }
         object.put("userId", userId);
         object.put("latitude", latitude);
-        object.put("longitude", longitude);
+        object.put("longtitude", longitude);
         object.put("address", addrStr);
         LogicManager.getInstance().saveLocation(object);
     }

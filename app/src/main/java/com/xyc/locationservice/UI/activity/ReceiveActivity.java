@@ -17,11 +17,17 @@ import com.xyc.guguviews.views.PullListView;
 import com.xyc.locationservice.R;
 import com.xyc.locationservice.UI.adapter.LocationAdapter;
 import com.xyc.locationservice.base.CommonParams;
+import com.xyc.locationservice.logic.eventBus.LocationEvent;
+import com.xyc.locationservice.logic.manager.LogicManager;
 import com.xyc.locationservice.logic.model.LocationModel;
 import com.xyc.locationservice.utils.UiUtils;
 import com.xyc.okutils.utils.DateUtils;
 import com.xyc.okutils.utils.PreferencesUtils;
 import com.xyc.okutils.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +59,7 @@ public class ReceiveActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setCenterView(R.layout.activity_receive);
         initView();
+        EventBus.getDefault().register(this);
         initData();
     }
 
@@ -64,32 +71,26 @@ public class ReceiveActivity extends BaseActivity {
     }
 
     private void loadData() {
-        AVQuery<AVObject> query = new AVQuery<>(CommonParams.ADDRESS_TABLE_NAME);
+
         String userId = PreferencesUtils.getString(CommonParams.OBJECT_ID);
         if (userId.isEmpty()) {
             ToastUtil.showShort(UiUtils.getValueString(R.string.login_invalid));
             return;
         }
-        query.whereEqualTo("userId", userId);
-        // 如果这样写，第二个条件将覆盖第一个条件，查询只会返回 priority = 1 的结果
-        query.findInBackground(new FindCallback<AVObject>() {
-            @Override
-            public void done(List<AVObject> list, AVException e) {
-                pullListView.refreshComplete();
-                pullListView.getMoreComplete();
-                Log.d("xyc", "done: list=" + list);
-                locationList.clear();
-                for (int i = 0; i < list.size(); i++) {
-                    LocationModel locationModel = new LocationModel();
-                    locationModel.setAddress(list.get(i).getString("address"));
-                    locationModel.setLastTime(DateUtils.getInstance().getLongToString(list.get(i).getCreatedAt().getTime(), DateUtils.MINUTE_FORMAT));
-                    locationModel.setLatitude(list.get(i).getLong("latitude"));
-                    locationModel.setLatitude(list.get(i).getLong("longtitude"));
-                    locationList.add(locationModel);
-                }
-                adapter.notifyDataSetChanged();
-            }
-        });
+        LogicManager.getInstance().getLocationData(userId);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocationEvent(LocationEvent event) {
+        List<LocationModel> locationModelData = event.getLocationModel();
+        pullListView.getMoreComplete();
+        pullListView.refreshComplete();
+        if (locationModelData == null || locationModelData.size() == 0) {
+            return;
+        }
+        locationList.clear();
+        locationList.addAll(locationModelData);
+        adapter.notifyDataSetChanged();
     }
 
     private void initView() {

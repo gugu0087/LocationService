@@ -34,4 +34,9 @@ public class LogicManager {
     public void saveLocation(AVObject data) {
         LocationManager.getInstance().saveLocation(data);
     }
+
+    public void getLocationData(String userId){
+     LocationManager.getInstance().getLocationList(userId);
+    }
+
 }
