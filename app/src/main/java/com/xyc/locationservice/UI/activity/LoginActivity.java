@@ -15,6 +15,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.xyc.guguviews.views.BaseActivity;
 import com.xyc.locationservice.R;
+import com.xyc.locationservice.base.BaseAppActivity;
 import com.xyc.locationservice.base.CommonParams;
 import com.xyc.locationservice.logic.eventBus.LoginEvent;
 import com.xyc.locationservice.logic.eventBus.RegisterEvent;
@@ -39,7 +40,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseAppActivity {
 
     private EditText etUserName;
     private EditText etPassword;

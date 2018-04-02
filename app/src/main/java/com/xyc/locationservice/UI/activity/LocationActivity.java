@@ -21,10 +21,11 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.xyc.guguviews.views.BaseActivity;
 import com.xyc.locationservice.R;
+import com.xyc.locationservice.base.BaseAppActivity;
 import com.xyc.locationservice.logic.location.LocationManager;
 import com.xyc.locationservice.utils.UiUtils;
 
-public class LocationActivity extends BaseActivity implements OnGetGeoCoderResultListener {
+public class LocationActivity extends BaseAppActivity implements OnGetGeoCoderResultListener {
 
     private MapView mapView;
     private TextView tvAddressTip;

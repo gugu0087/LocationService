@@ -15,6 +15,7 @@ import com.xyc.guguviews.views.BaseActivity;
 import com.xyc.guguviews.views.SlideItem;
 import com.xyc.guguviews.views.SlideMenuLayout;
 import com.xyc.locationservice.R;
+import com.xyc.locationservice.base.BaseAppActivity;
 import com.xyc.locationservice.base.CommonParams;
 import com.xyc.locationservice.logic.service.LocationService;
 import com.xyc.locationservice.utils.UiUtils;
@@ -23,7 +24,7 @@ import com.xyc.okutils.utils.PreferencesUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseAppActivity {
 
 
     private SlideMenuLayout slideMenu;

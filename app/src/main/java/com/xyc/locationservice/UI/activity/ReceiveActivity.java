@@ -16,6 +16,7 @@ import com.xyc.guguviews.views.BaseActivity;
 import com.xyc.guguviews.views.PullListView;
 import com.xyc.locationservice.R;
 import com.xyc.locationservice.UI.adapter.LocationAdapter;
+import com.xyc.locationservice.base.BaseAppActivity;
 import com.xyc.locationservice.base.CommonParams;
 import com.xyc.locationservice.logic.eventBus.LocationEvent;
 import com.xyc.locationservice.logic.manager.LogicManager;
@@ -32,7 +33,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReceiveActivity extends BaseActivity {
+public class ReceiveActivity extends BaseAppActivity {
 
     private PullListView pullListView;
     private List<LocationModel> locationList = new ArrayList<>();
